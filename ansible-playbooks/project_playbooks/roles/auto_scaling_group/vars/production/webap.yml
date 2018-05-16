@@ -1,0 +1,12 @@
+---
+auto_scaling_group:
+  webap:
+    name: asg-{{ global.project_id }}-{{ global.env_id}}-webap
+    region: "{{ global.region }}"
+    availability_zones:
+      - ap-northeast-1a
+    min_size: 1 
+    max_size: 1
+    desired_capacity: 1
+    vpc_zone_identifier:
+      - subnet-d37f9a9a

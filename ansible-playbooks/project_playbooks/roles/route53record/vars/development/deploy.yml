@@ -1,0 +1,5 @@
+---
+route53_dns:
+  dns_zone: project.selfy.jp.
+  dns_record: dev-build.project.selfy.jp.
+  dns_type: A

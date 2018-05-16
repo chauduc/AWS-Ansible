@@ -1,0 +1,26 @@
+---
+elb:
+  official:
+    name: elb-{{ global.project_id }}-{{ global.env_id}}-official
+    subnets:
+      - subnet-6372972a
+      - subnet-d3fea68b
+    listeners:
+      - protocol: http
+        load_balancer_port: 80
+        instance_port: 80
+    security_group_names:
+      - wt-prd-sg-https
+    cross_az_load_balancing: yes
+    health_check:
+        ping_protocol: http
+        ping_port: 80
+        ping_path: "/"
+        response_timeout: 5
+        interval: 10
+        unhealthy_threshold: 3
+        healthy_threshold: 2
+    access_logs:
+        interval: 5
+        s3_location: project-prd-accesslogs
+        s3_prefix: wt-prd-official

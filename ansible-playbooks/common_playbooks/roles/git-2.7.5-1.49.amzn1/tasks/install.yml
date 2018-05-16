@@ -1,0 +1,5 @@
+---
+- name: install git
+  yum:
+    name: git-2.7.5-1.49.amzn1
+    state: present

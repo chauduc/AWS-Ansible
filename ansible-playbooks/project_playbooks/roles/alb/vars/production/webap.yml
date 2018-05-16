@@ -1,0 +1,19 @@
+---
+alb:
+  webap:
+    name: webap
+    subnets:
+      - subnet-b7dac1c1
+      - subnet-1ea7f946
+    security_groups:
+      - wt-prd-sg-https
+    scheme: internet-facing
+    listeners:
+      - Protocol: HTTP
+        Port: 80
+        DefaultActions:
+          - Type: forward
+            TargetGroupName: tg-wt-prd-webap
+#        Certificates:
+#          - CertificateArn: arn:aws:iam::12345678987:server-certificate/test.domain.com
+#        SslPolicy: ELBSecurityPolicy-2015-05

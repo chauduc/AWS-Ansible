@@ -1,0 +1,39 @@
+---
+- name: create directory for application logs.
+  file:
+    path: "{{ log_dir }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: create directory for application root.
+  file:
+    path: "/var/{{ app_name }}"
+    state: "directory"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+
+- name: distribute config for application.
+  template:
+    src: "var/{{ app_name }}/{{ app_name }}_{{ global.env }}.conf.j2"
+    dest: "/var/{{ app_name }}/{{ app_name }}.conf"
+    owner: "root"
+    group: "root"
+
+- name: distribute application archive.
+  copy:
+    src: "var/{{ app_name }}/{{ app_name }}.jar"
+    dest: "/var/{{ app_name }}/{{ app_name }}.jar"
+    mode: "0755"
+    force: no
+
+- name: linked application.
+  file:
+    src: "/var/{{ app_name }}/{{ app_name }}.jar"
+    path: "/etc/init.d/{{ app_name }}"
+    state: "link"
+    owner: "root"
+    group: "root"
+    mode: "0777"

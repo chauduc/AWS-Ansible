@@ -1,0 +1,4 @@
+---
+nginx:
+  nginx_conf:
+    worker_connections: 100

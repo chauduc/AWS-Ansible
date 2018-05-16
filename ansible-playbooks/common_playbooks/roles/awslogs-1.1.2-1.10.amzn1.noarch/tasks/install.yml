@@ -1,0 +1,5 @@
+---
+- name: install awslogs
+  yum: 
+    name: awslogs-1.1.2-1.10.amzn1.noarch
+    state: present

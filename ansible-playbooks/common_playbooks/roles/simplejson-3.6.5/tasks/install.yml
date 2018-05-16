@@ -1,0 +1,4 @@
+---
+- pip:
+    name: simplejson==3.6.5
+    state: present

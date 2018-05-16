@@ -1,0 +1,6 @@
+---
+route53_dns:
+  elb_name: elb-wt-dev-webap
+  dns_zone: project.selfy.jp.
+  dns_record: dev-api.project.selfy.jp.
+  dns_type: A

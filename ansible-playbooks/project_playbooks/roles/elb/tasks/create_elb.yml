@@ -1,0 +1,20 @@
+---
+- name: create elb
+  ec2_elb_lb:
+    name: "{{ item.value.name }}"
+    region: "{{ global.region }}"
+    subnets: "{{ item.value.subnets }}"
+    security_group_names: "{{ item.value.security_group_names }}"
+    listeners: "{{ item.value.listeners }}"
+    cross_az_load_balancing: "{{ item.value.cross_az_load_balancing }}"
+    health_check: "{{ item.value.health_check }}"
+    access_logs: "{{ item.value.access_logs }}"
+    state: present
+    tags:
+      Name: "{{ item.value.name }}"
+      env: "{{ item.value.env }}"
+      role: "{{ item.value.role }}"
+  with_dict: "{{ elb }}"
+  register: _elb
+
+- debug: var=_elb verbosity=1

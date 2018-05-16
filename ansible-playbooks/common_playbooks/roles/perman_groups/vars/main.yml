@@ -1,0 +1,4 @@
+---
+perman_groups:
+  - name: cy_admin
+    gid: 10000

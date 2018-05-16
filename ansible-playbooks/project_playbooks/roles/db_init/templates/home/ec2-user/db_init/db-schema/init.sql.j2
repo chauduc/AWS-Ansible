@@ -1,0 +1,8 @@
+--
+--  create databases.
+--
+{% for item in db_init.db_schema %}
+CREATE DATABASE IF NOT EXISTS {{ item.name }} DEFAULT CHARSET {{ item.charset }};
+{% endfor %}
+
+

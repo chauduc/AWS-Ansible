@@ -1,0 +1,5 @@
+---
+- name: include vars_file
+  include_tasks: include_vars.yml
+- name: create launch_configration
+  include_tasks: create_launch_configuration.yml

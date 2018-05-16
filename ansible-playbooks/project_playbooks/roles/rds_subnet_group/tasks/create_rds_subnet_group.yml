@@ -1,0 +1,26 @@
+---
+- name: get vpc_subnet_id
+  ec2_vpc_subnet_facts:
+    region: "{{ global.region }}"
+    filters:
+      "tag:Name": "{{ item }}"
+  with_items: "{{ vpc_subnet.name }}"
+  register: _vpc_subnet_facts
+
+- debug: var=_vpc_subnet_facts
+
+- set_fact:
+    _vpc_subnet_ids: "{{ _vpc_subnet_facts.results|map(attribute='subnets.0.id')|list }}"
+
+- debug: var=_vpc_subnet_ids
+
+- name: create rds_subnet_group
+  rds_subnet_group:
+    name: "{{ rds_subnet_group.name }}"
+    description: "{{ rds_subnet_group.description }}"
+    region: "{{ rds_subnet_group.region }}"
+    state: present
+    subnets: "{{ _vpc_subnet_ids }}"
+  register: _rds_subnet_group
+
+- debug: var=_rds_subnet_group

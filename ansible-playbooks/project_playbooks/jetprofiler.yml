@@ -1,0 +1,15 @@
+- name: launch instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: instance
+      vars_file: jetprofiler.yml
+
+- name: Configure instance(s)
+  hosts: launched
+  become: yes
+  gather_facts: no
+  roles:
+    - role: jetprofiler
+      vars_file: jetprofiler.yml

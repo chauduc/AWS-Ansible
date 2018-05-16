@@ -1,0 +1,22 @@
+---
+- name: Ensures /home/ec2-user/.aws dir exists
+  file: 
+    path: "{{ aws.path }}"
+    state: "{{ aws.state }}"
+
+- name: update ansible_config file
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ ansible_config_files }}"
+
+- name: touch log file
+  file:
+     state: touch
+     path: "{{ ansible.log_path }}"
+     owner: ec2-user
+     group: ec2-user
+     mode: "0644"

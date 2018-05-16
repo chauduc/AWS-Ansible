@@ -1,0 +1,4 @@
+---
+- pip:
+    name: requests==1.2.3
+    state: present

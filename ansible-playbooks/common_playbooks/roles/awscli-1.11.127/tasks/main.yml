@@ -1,0 +1,3 @@
+---
+- name: install awscli-1.11.127
+  include_tasks: install.yml

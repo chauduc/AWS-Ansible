@@ -1,0 +1,18 @@
+---
+- name: update clock file
+  template:
+    src: etc/sysconfig/clock.j2
+    dest: /etc/sysconfig/clock
+    owner: "root"
+    group: "root"
+    mode: "0644"
+
+- name: create symblolic link
+  file:
+    state: link
+    force: yes
+    src: "{{ timezone.localtime.src }}"
+    dest: "{{ timezone.localtime.dest }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"

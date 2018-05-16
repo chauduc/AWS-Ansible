@@ -1,0 +1,5 @@
+---
+- name: group install.
+  yum:
+    name: "@^Server with GUI"
+    state: present

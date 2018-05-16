@@ -1,0 +1,3 @@
+---
+- name: install jinja2
+  include_tasks: install.yml

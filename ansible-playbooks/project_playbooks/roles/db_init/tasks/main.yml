@@ -1,0 +1,12 @@
+---
+- name: include vars_file
+  include_tasks: include_vars.yml
+  tags: 
+    - db-schema
+    - db-user 
+- name: create db schema
+  include_tasks: create_db_schema.yml
+  tags: db-schema
+- name: create db schema
+  include_tasks: create_db_user.yml
+  tags: db-user

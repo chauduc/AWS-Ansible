@@ -1,0 +1,7 @@
+- name: create new VPC
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: vpc
+      vars_file: vpc.yml

@@ -1,0 +1,7 @@
+- name: create new route53 zone
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: route53zone
+      vars_file: zone.yml

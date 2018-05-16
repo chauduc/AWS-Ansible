@@ -1,0 +1,105 @@
+---
+iam_role_etc:
+  aws_account_id: 961290755580
+  ec2_assume_role_policy_document: >-
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "Service": "ec2.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        }
+      ]
+    }
+  codedeploy_assume_role_policy_document: >-
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "",
+          "Effect": "Allow",
+          "Principal": {
+            "Service": "codedeploy.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        }
+      ]
+    }
+  mackerel_aws_integration_assume_role_policy_document: >-
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "arn:aws:iam::217452466226:root"
+          },
+          "Action": "sts:AssumeRole",
+          "Condition": {
+            "StringEquals": {
+              "sts:ExternalId": "Mackerel-AWS-Integration"
+            }
+          }
+        }
+      ]
+    }
+iam_role_arn:
+  default_arn: "arn:aws:iam::aws:policy"
+  custom_arn: "arn:aws:iam::{{ iam_role_etc.aws_account_id }}:policy"
+iam_role:
+  wt-dev-codedeploy-ec2-instance-profile:
+    name: "{{ global.project_id }}-{{ global.env_id}}-codedeploy-ec2-instance-profile"
+    assume_role_policy_document: "{{ iam_role_etc.ec2_assume_role_policy_document }}"
+    managed_policy:
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-S3-Get-{{ global.project_name }}-server-development"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-S3-Get-aws-codedeploy-ap-northeast-1"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-S3-List-{{ global.project_name }}-server-development"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-S3-List-aws-codedeploy-ap-northeast-1"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-EC2-CreateTags"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-CloudprojectLogs-CreateLogGroup"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-CloudprojectLogs-CreateLogStream"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-CloudprojectLogs-PutLogEvents"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-CloudprojectLogs-DescribeLogStreams"
+  wt-dev-ansible-instance-profile:
+    name: "{{ global.project_id }}-{{ global.env_id}}-ansible-instance-profile"
+    assume_role_policy_document: "{{ iam_role_etc.ec2_assume_role_policy_document }}"
+    managed_policy:
+      - "{{ iam_role_arn.default_arn }}/AdministratorAccess"
+  wt-dev-deploy-instance-profile:
+    name: "{{ global.project_id }}-{{ global.env_id}}-deploy-instance-profile"
+    assume_role_policy_document: "{{ iam_role_etc.ec2_assume_role_policy_document }}"
+    managed_policy:
+      - "{{ iam_role_arn.default_arn }}/AmazonEC2FullAccess"
+      - "{{ iam_role_arn.default_arn }}/AutoScalingFullAccess"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-IAM-ListInstanceProfiles"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-IAM-PassRole"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-S3-FullAccess-{{ global.project_name }}-server-development"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-S3-FullAccess-aws-codedeploy-ap-northeast-1"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-CodeDeploy-FullAccess-{{ global.project_name }}-server-development"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-CodeDeploy-FullAccess-deploymentgroup"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-CodeDeploy-FullAccess-deploymentconfig"
+  codedeployservicerole:
+    name: "CodeDeployServiceRole"
+    assume_role_policy_document: "{{ iam_role_etc.codedeploy_assume_role_policy_document }}"
+    managed_policy:
+      - "{{ iam_role_arn.default_arn }}/AutoScalingFullAccess"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-EC2-DescribeFull"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-ELB-FullAccess"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-Tag-GetResources"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-Tag-GetTags"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-Tag-GetTagsForResource"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-Tag-GetTagsForResourceList"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-SNS-Publish"
+      - "{{ iam_role_arn.custom_arn }}/{{ global.project_name }}-STS-AssumeRole"
+  mackerelawsintegrationrole:
+    name: "MackerelAWSIntegrationRole"
+    assume_role_policy_document: "{{ iam_role_etc.mackerel_aws_integration_assume_role_policy_document }}"
+    managed_policy:
+      - "{{ iam_role_arn.default_arn }}/AmazonRedshiftReadOnlyAccess"
+      - "{{ iam_role_arn.default_arn }}/AmazonEC2ReadOnlyAccess"
+      - "{{ iam_role_arn.default_arn }}/AmazonElastiCacheReadOnlyAccess"
+      - "{{ iam_role_arn.default_arn }}/AmazonRDSReadOnlyAccess"
+      - "{{ iam_role_arn.default_arn }}/AWSLambdaReadOnlyAccess"

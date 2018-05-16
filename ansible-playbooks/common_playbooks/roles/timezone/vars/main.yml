@@ -1,0 +1,6 @@
+---
+timezone:
+  zone: Japan
+  localtime:
+    src: /usr/share/zoneinfo/Japan
+    dest: /etc/localtime

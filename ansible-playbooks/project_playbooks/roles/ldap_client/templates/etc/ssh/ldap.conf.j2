@@ -1,0 +1,5 @@
+{% if ldap_config is defined %}
+{% for key, command in ldap_config.items() %}
+{{ key }} {{ command }}
+{% endfor %}
+{% endif %}

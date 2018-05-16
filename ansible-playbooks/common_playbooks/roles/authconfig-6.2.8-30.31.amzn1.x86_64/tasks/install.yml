@@ -1,0 +1,6 @@
+---
+- name: install.
+  yum:
+    name=authconfig-6.2.8-30.31.amzn1.x86_64
+    state=present
+

@@ -1,0 +1,25 @@
+mackerel_agent:
+  apikey: "kbBic7RFUSd8tcHodD2cSLbUKB3gnMg1xn6AgLNXJAjD"
+  pidfile: "/var/run/mackerel-agent.pid"
+  root: "/var/lib/mackerel-agent"
+  display_name: "wt-dev-monitor"
+  roles: 
+    - "dev:monitor"
+  agent_plugins:
+    aws-elb-stat: "/usr/local/bin/mackerel-tools/aws-elb-stat.py --elbnames elb-wt-dev1-webap,elb-wt-dev1-admin,elb-wt-dev-deploy,elb-wt-dev-webap,elb-wt-dev-admin"
+  check_plugins:
+    connectivity_bastion: "check-tcp -H 10.141.156.85 -p 22 -c 60"
+    connectivity_ansible: "check-tcp -H 10.141.156.150 -p 22 -c 60"
+    connectivity_deploy: "check-tcp -H 10.141.158.253 -p 22 -c 60"
+mackerel_config_files:
+  - src: etc/mackerel-agent/mackerel-agent.conf.j2
+    dest: /etc/mackerel-agent/mackerel-agent.conf
+    owner: root 
+    group: root
+    mode: "0644"
+mackerel_customise_plugin:
+  - src: usr/local/bin/mackerel-tools/aws-elb-stat.py
+    dest: /usr/local/bin/mackerel-tools/aws-elb-stat.py
+    owner: root 
+    group: root
+    mode: "0755"

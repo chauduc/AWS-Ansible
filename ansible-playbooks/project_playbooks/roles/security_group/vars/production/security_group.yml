@@ -1,0 +1,52 @@
+---
+security_group_etc:
+  region: "{{ global.region }}"
+security_group:
+  manage:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-manage"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+  http:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-http"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+  https:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-https"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
+  http8080:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-http8080"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 8080
+        to_port: 8080
+        cidr_ip: 0.0.0.0/0
+  mysql-prdvpc:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-mysql-prdvpc"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 3306
+        to_port: 3306
+        cidr_ip: 10.141.144.0/21
+  manage-prdvpc:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-manage-prdvpc"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 10.141.144.0/21

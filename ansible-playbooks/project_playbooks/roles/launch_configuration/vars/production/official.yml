@@ -1,0 +1,17 @@
+---
+launch_configuration:
+  official:
+    name: lc-{{ global.project_id }}-{{ global.env_id}}-official
+    image_id: ami-64c62202
+    key_name: wt-dev
+    security_groups:
+      - "{{ global.project_id }}-{{ global.env_id }}-sg-manage-{{ global.env_id }}vpc"
+      - "{{ global.project_id }}-{{ global.env_id }}-sg-http"
+    instance_type: t2.micro
+    instance_profile_name: codedeploy-ec2-instance-profile-production
+    volumes:
+      - device_name: /dev/xvda
+        volume_size: 8
+        device_type: gp2
+        delete_on_termination: yes
+    user_data: IyEvYmluL2Jhc2ggLWV4CmNkIC9ob21lL2VjMi11c2VyLwphd3MgZWMyIGNyZWF0ZS10YWdzIC0tcmVzb3VyY2VzIGBjdXJsIC1zIGh0dHA6Ly8xNjkuMjU0LjE2OS4yNTQvbGF0ZXN0L21ldGEtZGF0YS9pbnN0YW5jZS1pZGAgLS10YWdzICJbe1wiS2V5XCI6XCJyb2xlXCIsXCJWYWx1ZVwiOlwib2ZmaWNpYWxcIn0se1wiS2V5XCI6XCJlbnZcIixcIlZhbHVlXCI6XCJwcmRcIn0se1wiS2V5XCI6XCJOYW1lXCIsXCJWYWx1ZVwiOlwid3QtcHJkLW9mZmljaWFsXCJ9XSIKYXdzIGNvbmZpZ3VyZSBzZXQgZGVmYXVsdC5zMy5zaWduYXR1cmVfdmVyc2lvbiBzM3Y0IHx8IGVycm9yX2V4aXQgJ0ZhaWxlZCB0byBzZXQgYXdzIGNsaSBzaWduYXR1cmUgdG8gdmVyc2lvbiA0Jwphd3MgczMgY3AgJ3MzOi8vYXdzLWNvZGVkZXBsb3ktYXAtbm9ydGhlYXN0LTEvbGF0ZXN0L2NvZGVkZXBsb3ktYWdlbnQubm9hcmNoLnJwbScgLiAtLXJlZ2lvbiBhcC1ub3J0aGVhc3QtMSB8fCBlcnJvcl9leGl0ICdGYWlsZWQgdG8gZG93bmxvYWQgQVdTIENvZGVEZXBsb3kgQWdlbnQuJwp5dW0gLXkgaW5zdGFsbCBjb2RlZGVwbG95LWFnZW50Lm5vYXJjaC5ycG0gfHwgZXJyb3JfZXhpdCAnRmFpbGVkIHRvIGluc3RhbGwgQVdTIENvZGVEZXBsb3kgQWdlbnQuJwo=

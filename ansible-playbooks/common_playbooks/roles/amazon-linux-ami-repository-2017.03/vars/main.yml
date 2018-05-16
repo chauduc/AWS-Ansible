@@ -1,0 +1,9 @@
+---
+releasever:
+  version: 2017.03
+  yum_conf_files:
+    - src: etc/yum.conf.j2
+      dest: /etc/yum.conf
+      owner: "root"
+      group: "root"
+      mode: "0644"

@@ -1,0 +1,30 @@
+---
+- name: get vpc_id
+  ec2_vpc_net_facts:
+    region: "{{ global.region }}"
+    filters:
+      "tag:Name": "{{ global.vpc_name }}"
+  register: vpc_net_fact
+  check_mode: no
+
+- debug: var=vpc_net_fact
+
+- name: create target_group
+  elb_target_group:
+    name: "{{ item.value.group_name }}"
+    protocol: http
+    port: 80
+    vpc_id: "{{ vpc_net_fact.vpcs[0].id }}"
+    health_check_interval: "{{ item.value.health_check_interval }}"
+    health_check_path: "{{ item.value.health_check_path }}"
+    health_check_port: "{{ item.value.health_check_port }}"
+    health_check_protocol: "{{ item.value.health_check_protocol }}"
+    health_check_timeout: "{{ item.value.health_check_timeout }}"
+    healthy_threshold_count: "{{ item.value.healthy_threshold_count }}"
+    unhealthy_threshold_count: "{{ item.value.unhealthy_threshold_count }}"
+    modify_targets: no
+    state: present
+  with_dict: "{{ target_group }}"
+  register: _tg
+
+- debug: var=_tg verbosity=1

@@ -1,0 +1,9 @@
+---
+- name: add modules extras
+  copy:
+    src: "{{ item.src }}/{{ item.filename }}"
+    dest: "{{ item.dest }}/{{ item.filename }}"
+    owner: root
+    group: root
+    mode: "0644"
+  with_items: "{{ modules_extras }}"

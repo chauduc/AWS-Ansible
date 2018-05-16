@@ -1,0 +1,21 @@
+---
+- debug: var=_elb.results[0] verbosity=1
+- name: get elb dns
+  ec2_elb_facts:
+    region: "{{ global.region }}"
+    names: "{{ _elb.results[0].elb.name }}"
+  register: _route53_elb
+
+- debug: var=_route53_elb verbosity=1
+
+- name: add elb as arecord
+  route53:
+    state: present
+    overwrite: yes
+    zone: "{{ route53_dns.dns_zone }}"
+    record: "{{ route53_dns.dns_record }}"
+    type: "{{ route53_dns.dns_type }}"
+    value: "{{ _route53_elb.elbs[0].dns_name }}"
+    alias: yes
+    alias_hosted_zone_id: "{{ _route53_elb.elbs[0].hosted_zone_id }}"
+    alias_evaluate_target_health: yes

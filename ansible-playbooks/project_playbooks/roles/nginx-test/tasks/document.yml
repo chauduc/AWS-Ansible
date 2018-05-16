@@ -1,0 +1,8 @@
+---
+- name: set index html
+  copy:
+    src: usr/share/nginx/html/index.html
+    dest: /usr/share/nginx/html/index.html
+    owner: nginx
+    group: nginx
+    mode: "0644"

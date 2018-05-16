@@ -1,0 +1,15 @@
+---
+jenkins:
+    port: "8080"
+    java_options: "-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
+config:
+  - src: etc/sysconfig/jenkins.j2
+    dest: /etc/sysconfig/jenkins
+    owner: root
+    group: root
+    mode: "0600"
+  - src: var/lib/jenkins/config.xml
+    dest: /var/lib/jenkins/config.xml
+    owner: jenkins
+    group: jenkins
+    mode: "0644"

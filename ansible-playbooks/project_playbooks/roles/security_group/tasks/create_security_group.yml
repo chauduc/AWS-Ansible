@@ -1,0 +1,27 @@
+---
+- name: get vpc_id
+  ec2_vpc_net_facts:
+    region: "{{ global.region }}"
+    filters:
+      "tag:Name": "{{ global.vpc_name }}"
+  register: vpc_net_fact
+  check_mode: no
+
+- debug: var=vpc_net_fact
+
+- name: create security_group
+  ec2_group:
+    name: "{{ item.value.group_name }}"
+    description: "{{ item.value.description }}"
+    vpc_id: "{{ vpc_net_fact.vpcs[0].id }}"
+    region: "{{ security_group_etc.region }}"
+    rules: >-
+      {%- if item.value.rules|length == 1 -%}
+        {{ item.value.rules }}
+      {%- else -%}
+        {{ item.value.rules | join(',') }}
+      {%- endif -%}
+  with_dict: "{{ security_group }}"
+  register: sg
+
+- debug: var=sg

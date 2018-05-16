@@ -1,0 +1,7 @@
+---
+- name: include vars_file
+  include_tasks: include_vars.yml
+- name: modify nscd_config
+  include_tasks: modify_nscd_config.yml
+- name: register service
+  include_tasks: service.yml

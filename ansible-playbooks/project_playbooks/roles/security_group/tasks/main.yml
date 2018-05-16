@@ -1,0 +1,7 @@
+---
+- name: include vars_file
+  include_tasks: include_vars.yml
+- name: create security_group
+  include_tasks: create_security_group.yml
+- name: create security_group use source groups
+  include_tasks: create_security_group_use_source_groups.yml

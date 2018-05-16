@@ -1,0 +1,11 @@
+---
+nscd_config:
+  paranoia: yes
+  persistent: no
+  restart_interval: 60
+nscd_files:
+  - src: etc/nscd.conf.j2
+    dest: /etc/nscd.conf
+    owner: "root"
+    group: "root"
+    mode: "0644"

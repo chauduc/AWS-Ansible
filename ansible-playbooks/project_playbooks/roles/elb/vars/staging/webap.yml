@@ -1,0 +1,31 @@
+---
+elb:
+  webap:
+    name: elb-{{ global.project_id }}-{{ global.env_id}}-webap
+    subnets:
+      - subnet-627b9e2b
+      - subnet-daf2aa82
+    listeners:
+      - protocol: https
+        load_balancer_port: 443
+        instance_protocol: http
+        instance_port: 80
+        ssl_certificate_id: "arn:aws:acm:us-east-1:961290755580:certificate/16dc0075-30a6-45d7-bf3e-1d6d857a5b1d"
+    security_group_names:
+      - "{{ global.project_id }}-{{ global.env_id }}-sg-https-gc-stitch"
+      - "{{ global.project_id }}-{{ global.env_id }}-sg-https-gc-lilo"
+      - "{{ global.project_id }}-{{ global.env_id }}-sg-https-gc-sl-vpn"
+      - "{{ global.project_id }}-{{ global.env_id }}-sg-https-northern"
+    cross_az_load_balancing: yes
+    health_check:
+        ping_protocol: http
+        ping_port: 80
+        ping_path: "/"
+        response_timeout: 5
+        interval: 10
+        unhealthy_threshold: 3
+        healthy_threshold: 2
+    access_logs:
+        interval:
+        s3_location:
+        s3_prefix:

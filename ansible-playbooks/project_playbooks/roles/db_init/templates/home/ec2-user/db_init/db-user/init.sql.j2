@@ -1,0 +1,14 @@
+--
+--  create database users and grant user.
+--
+{% for item in db_init.db_user %}
+GRANT USAGE ON *.* TO '{{ item.username }}'@'localhost' IDENTIFIED BY 'password';
+DROP USER '{{ item.username }}'@'localhost';
+CREATE USER '{{ item.username }}'@'localhost' IDENTIFIED BY '{{ item.password }}';
+
+{% for grant in item.grants %}
+GRANT {{ grant.action }} ON {{ grant.schema }} TO '{{ item.username }}'@'localhost';
+{% endfor %}
+{% endfor %}
+
+

@@ -1,0 +1,25 @@
+---
+ec2_etc:
+  role: bastion
+  region: "{{ global.region }}"
+ec2:
+  instances:
+    - name: "{{ global.project_id }}-{{ global.env_id }}-{{ ec2_etc.role }}"
+      env: "{{ global.env_id }}"
+      role: "{{ ec2_etc.role }}"
+      region: "{{ global.region }}"
+      instance_type: t2.micro
+      image: ami-8f63a8e9
+      instance_profile_name:
+      key_name: wt-dev
+      subnet_name: wt-dev-public01a
+      group:
+        - "{{ global.project_id }}-{{ global.env_id }}-sg-manage"
+      volumes:
+        - device_name: /dev/xvda
+          volume_size: 8
+          device_type: gp2
+          delete_on_termination: yes
+      exact_count: 1
+      assign_public_ip: yes
+      user_data:

@@ -1,0 +1,22 @@
+export SPRING_PROFILES_ACTIVE={{ active_profile }}
+export JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.maxActive={{ tomcat_max_active }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.initialSize={{ tomcat_initial_size }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.maxIdle={{ tomcat_max_idle }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.minIdle={{ tomcat_min_idle }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.maxAge={{ tomcat_max_age }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.fairQueue={{ tomcat_fair_queue }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.maxWait={{ tomcat_max_wait }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.testOnBorrow={{ tomcat_test_on_borrow }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.testOnReturn={{ tomcat_test_on_return }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.validationQueryTimeout={{ tomcat_validation_query_timeout }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.validationInterval={{ tomcat_validation_interval }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.testWhileIdle={{ tomcat_test_while_idle }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.timeBetweenEvictionRunsMillis={{ tomcat_time_between_eviction_runs_millis }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.minEvictableIdleTimeMillis={{ tomcat_min_evictable_idle_time_millis }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.removeAbandoned={{ tomcat_remove_abandoned }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.removeAbandonedTimeout={{ tomcat_remove_abandoned_timeout }}"
+export JAVA_OPTS="$JAVA_OPTS -Dspring.datasource.tomcat.connectionProperties={{ tomcat_connection_properties }}"
+export JAVA_HOME=/usr/java/latest
+export LANG="ja_JP.utf8"
+LOG_FOLDER={{ log_dir }}

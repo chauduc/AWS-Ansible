@@ -1,0 +1,62 @@
+---
+db_init:
+  instances:
+    name: "{{ global.project_id }}-{{ global.env_id }}-dbm"
+    region: "{{ global.region }}"
+  db_auth:
+    login_user: admin
+    login_password: 1234567890
+    login_port: 3306
+  db_schema_batch:
+    - src: home/ec2-user/db_init/db-schema/init.sql.j2
+      dest: /home/ec2-user/db_init/db-schema/init.sql
+      owner: ec2-user
+      group: ec2-user
+      mode: "0644"
+  db_schema:
+    - name: project_master
+      charset: utf8
+    - name: project_transaction
+      charset: utf8
+    - name: project_sharded_transaction0
+      charset: utf8
+    - name: project_sharded_transaction1
+      charset: utf8
+    - name: project_sharded_transaction2
+      charset: utf8
+    - name: project_sharded_transaction3
+      charset: utf8
+    - name: project_sharded_transaction4
+      charset: utf8
+    - name: project_sharded_transaction5
+      charset: utf8
+    - name: project_sharded_transaction6
+      charset: utf8
+    - name: project_sharded_transaction7
+      charset: utf8
+    - name: project_sharded_transaction8
+      charset: utf8
+    - name: project_sharded_transaction9
+      charset: utf8
+    - name: project_master_test
+      charset: utf8
+    - name: project_transaction_test
+      charset: utf8
+    - name: project_sharded_transaction_test
+      charset: utf8
+  db_user_batch:
+    - src: home/ec2-user/db_init/db-user/init.sql.j2
+      dest: /home/ec2-user/db_init/db-user/init.sql
+      owner: ec2-user
+      group: ec2-user
+      mode: "0644"
+  db_user:
+    - username: dev
+      password: 1234567890
+      grants: 
+        - schema: project_master.*
+          action: ALL
+        - schema: project_transaction.*
+          action: ALL
+        - schema: project_sharded_transaction0.*
+          action: ALL

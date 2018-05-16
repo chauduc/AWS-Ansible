@@ -1,0 +1,7 @@
+#/bin/sh
+
+ROOM_ID=65965059
+#ROOM_ID=65774471
+CHATWORK_API_TOKEN=77906c0dde23ef07fb14d36abd084886
+POST_MESSAGE=$1
+curl -X POST -H "X-ChatWorkToken: ${CHATWORK_API_TOKEN}" -d "body=${POST_MESSAGE}" "https://api.chatwork.com/v2/rooms/${ROOM_ID}/messages"

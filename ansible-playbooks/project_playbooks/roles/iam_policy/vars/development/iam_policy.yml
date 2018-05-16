@@ -1,0 +1,184 @@
+---
+iam_policy_etc:
+  version: "2012-10-17"
+iam_policy:
+  ELB:FullAccess:
+    policy_name: "{{ global.project_name }}-ELB-FullAccess"
+    policy:
+      effect: "Allow"
+      action: "elasticloadbalancing:*"
+      resource: "*"
+  ELB:RegisterInstancesWithLoadBalancer:
+    policy_name: "{{ global.project_name }}-ELB-RegisterInstancesWithLoadBalancer"
+    policy:
+      effect: "Allow"
+      action: "elasticloadbalancing:RegisterInstancesWithLoadBalancer"
+      resource: "*"
+  ELB:DescribeLoadBalancers:
+    policy_name: "{{ global.project_name }}-ELB-DescribeLoadBalancers"
+    policy:
+      effect: "Allow"
+      action: "elasticloadbalancing:DescribeLoadBalancers"
+      resource: "*"
+  ELB:DescribeInstanceHealth:
+    policy_name: "{{ global.project_name }}-ELB-DescribeInstanceHealth"
+    policy:
+      effect: "Allow"
+      action: "elasticloadbalancing:DescribeInstanceHealth"
+      resource: "*"
+  EC2:DescribeFull:
+    policy_name: "{{ global.project_name }}-EC2-DescribeFull"
+    policy:
+      effect: "Allow"
+      action: "ec2:Describe*"
+      resource: "*"
+  EC2:DescribeInstances:
+    policy_name: "{{ global.project_name }}-EC2-DescribeInstances"
+    policy:
+      effect: "Allow"
+      action: "ec2:DescribeInstances"
+      resource: "*"
+  EC2:CreateTags:
+    policy_name: "{{ global.project_name }}-EC2-CreateTags"
+    policy:
+      effect: "Allow"
+      action: "ec2:CreateTags"
+      resource: "*"
+  EC2:TerminateInstances:
+    policy_name: "{{ global.project_name }}-EC2-TerminateInstances"
+    policy:
+      effect: "Allow"
+      action: "ec2:TerminateInstances"
+      resource: "*"
+  S3:FullAccess:project-server-development:
+    policy_name: "{{ global.project_name }}-S3-FullAccess-{{ global.project_name }}-server-development"
+    policy:
+      effect: "Allow"
+      action: "s3:*"
+      resource: "arn:aws:s3:::{{ global.project_name }}-server-development/*"
+  S3:FullAccess:aws-codedeploy-ap-northeast-1:
+    policy_name: "{{ global.project_name }}-S3-FullAccess-aws-codedeploy-ap-northeast-1"
+    policy:
+      effect: "Allow"
+      action: "s3:*"
+      resource: "arn:aws:s3:::aws-codedeploy-ap-northeast-1/*"
+  S3:Get:project-server-development:
+    policy_name: "{{ global.project_name }}-S3-Get-{{ global.project_name }}-server-development"
+    policy:
+      effect: "Allow"
+      action: "s3:Get*"
+      resource: "arn:aws:s3:::{{ global.project_name }}-server-development/*"
+  S3:Get:aws-codedeploy-ap-northeast-1:
+    policy_name: "{{ global.project_name }}-S3-Get-aws-codedeploy-ap-northeast-1"
+    policy:
+      effect: "Allow"
+      action: "s3:Get*"
+      resource: "arn:aws:s3:::aws-codedeploy-ap-northeast-1/*"
+  S3:List:project-server-development:
+    policy_name: "{{ global.project_name }}-S3-List-{{ global.project_name }}-server-development"
+    policy:
+      effect: "Allow"
+      action: "s3:List*"
+      resource: "arn:aws:s3:::{{ global.project_name }}-server-development/*"
+  S3:List:aws-codedeploy-ap-northeast-1:
+    policy_name: "{{ global.project_name }}-S3-List-aws-codedeploy-ap-northeast-1"
+    policy:
+      effect: "Allow"
+      action: "s3:List*"
+      resource: "arn:aws:s3:::aws-codedeploy-ap-northeast-1/*"
+  CodeDeploy:FullAccess-ap-northeast-1:
+    policy_name: "{{ global.project_name }}-CodeDeploy-FullAccess-ap-northeast-1"
+    policy:
+      effect: "Allow"
+      action: "codedeploy:*"
+      resource: "arn:aws:codedeploy:ap-northeast-1:*"
+  CodeDeploy:FullAccess-project-server-development:
+    policy_name: "{{ global.project_name }}-CodeDeploy-FullAccess-{{ global.project_name }}-server-development"
+    policy:
+      effect: "Allow"
+      action: "codedeploy:*"
+      resource: "arn:aws:codedeploy:ap-northeast-1:961290755580:application:{{ global.project_name }}-server-development"
+  CodeDeploy:FullAccess-deploymentgroup:
+    policy_name: "{{ global.project_name }}-CodeDeploy-FullAccess-deploymentgroup"
+    policy:
+      effect: "Allow"
+      action: "codedeploy:*"
+      resource: "arn:aws:codedeploy:ap-northeast-1:961290755580:deploymentgroup:*"
+  CodeDeploy:FullAccess-deploymentconfig:
+    policy_name: "{{ global.project_name }}-CodeDeploy-FullAccess-deploymentconfig"
+    policy:
+      effect: "Allow"
+      action: "codedeploy:*"
+      resource: "arn:aws:codedeploy:ap-northeast-1:961290755580:deploymentconfig:*"
+  CloudprojectLogs:CreateLogGroup:
+    policy_name: "{{ global.project_name }}-CloudprojectLogs-CreateLogGroup"
+    policy:
+     effect: "Allow"
+     action: "logs:CreateLogGroup"
+     resource: "arn:aws:logs:*:*:*"
+  CloudprojectLogs:CreateLogStream:
+    policy_name: "{{ global.project_name }}-CloudprojectLogs-CreateLogStream"
+    policy:
+     effect: "Allow"
+     action: "logs:CreateLogStream"
+     resource: "arn:aws:logs:*:*:*"
+  CloudprojectLogs:PutLogEvents:
+    policy_name: "{{ global.project_name }}-CloudprojectLogs-PutLogEvents"
+    policy:
+     effect: "Allow"
+     action: "logs:PutLogEvents"
+     resource: "arn:aws:logs:*:*:*"
+  CloudprojectLogs:DescribeLogStreams:
+    policy_name: "{{ global.project_name }}-CloudprojectLogs-DescribeLogStreams"
+    policy:
+     effect: "Allow"
+     action: "logs:DescribeLogStreams"
+     resource: "arn:aws:logs:*:*:*"
+  IAM:ListInstanceProfiles:
+    policy_name: "{{ global.project_name }}-IAM-ListInstanceProfiles"
+    policy:
+     effect: "Allow"
+     action: "iam:ListInstanceProfiles"
+     resource: "*"
+  IAM:PassRole:
+    policy_name: "{{ global.project_name }}-IAM-PassRole"
+    policy:
+     effect: "Allow"
+     action: "iam:PassRole"
+     resource: "*"
+  Tag:GetResources:
+    policy_name: "{{ global.project_name }}-Tag-GetResources"
+    policy:
+     effect: "Allow"
+     action: "Tag:GetResources"
+     resource: "*"
+  Tag:GetTags:
+    policy_name: "{{ global.project_name }}-Tag-GetTags"
+    policy:
+     effect: "Allow"
+     action: "Tag:GetTags"
+     resource: "*"
+  Tag:GetTagsForResource:
+    policy_name: "{{ global.project_name }}-Tag-GetTagsForResource"
+    policy:
+     effect: "Allow"
+     action: "Tag:GetTagsForResource"
+     resource: "*"
+  Tag:GetTagsForResourceList:
+    policy_name: "{{ global.project_name }}-Tag-GetTagsForResourceList"
+    policy:
+     effect: "Allow"
+     action: "Tag:GetTagsForResourceList"
+     resource: "*"
+  SNS:Publish:
+    policy_name: "{{ global.project_name }}-SNS-Publish"
+    policy:
+     effect: "Allow"
+     action: "sns:Publish"
+     resource: "*"
+  STS:AssumeRole:
+    policy_name: "{{ global.project_name }}-STS-AssumeRole"
+    policy:
+     effect: "Allow"
+     action: "sts:AssumeRole"
+     resource: "*"

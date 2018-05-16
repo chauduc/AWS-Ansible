@@ -1,0 +1,30 @@
+---
+ldap_config_etc:
+  uri_dns: wt-dev-ldap.dev.local
+  ssh_filter: gcrest-project-dev-ssh-login
+  base: dc=cyberagent,dc=co,dc=jp
+ldap_config:
+  uri: ldap://{{ ldap_config_etc.uri_dns }}
+  port: 389
+  base: "{{ ldap_config_etc.base }}"
+  ldap_version: 3
+  scope: sub
+  timelimit: 30
+  bind_timelimit: 30
+  bind_policy: soft
+  ssl: no
+  SSH_Filter: (description={{ ldap_config_etc.ssh_filter }})
+ldap_files:
+  - src: etc/ssh/ldap.conf.j2
+    dest: /etc/ssh/ldap.conf
+    owner: root
+    group: root
+    mode: "0644"
+  - src: etc/sudoers.d/perman_groups.j2
+    dest: /etc/sudoers.d/perman_groups
+    owner: root
+    group: root
+    mode: "0440"
+auth_command:
+  - command: --enableldap --enableldapauth --ldapserver={{ ldap_config_etc.uri_dns }} --ldapbasedn={{ ldap_config_etc.base }} --update
+  - command: --enablemkhomedir --update

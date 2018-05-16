@@ -1,0 +1,14 @@
+---
+- easy_install:
+    name: pip==9.0.1
+    state: latest
+
+- name: create symblolic link
+  file:
+    state: link
+    force: yes
+    src: "{{ pip.path.src }}"
+    dest: "{{ pip.path.dest }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"

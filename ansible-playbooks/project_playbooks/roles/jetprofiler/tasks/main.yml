@@ -1,0 +1,7 @@
+---
+- name: include vars_file 
+  include_tasks: include_vars.yml
+- name: modify jetprofiler server config
+  include_tasks: config.yml
+- name: register services
+  include_tasks: services.yml

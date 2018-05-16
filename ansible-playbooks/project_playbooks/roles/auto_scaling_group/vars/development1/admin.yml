@@ -1,0 +1,12 @@
+---
+auto_scaling_group:
+  admin:
+    name: asg-{{ global.project_id }}-{{ global.env_id}}-admin
+    region: "{{ global.region }}"
+    availability_zones:
+      - ap-northeast-1a
+    min_size: 1 
+    max_size: 2
+    desired_capacity: 1
+    vpc_zone_identifier:
+      - subnet-e2799cab

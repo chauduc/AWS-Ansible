@@ -1,0 +1,6 @@
+---
+- name: register mackerel-agent service
+  service:
+    name: mackerel-agent
+    state: restarted
+    enabled: yes

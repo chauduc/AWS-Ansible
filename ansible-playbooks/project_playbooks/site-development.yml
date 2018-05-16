@@ -1,0 +1,3 @@
+---
+- include: iam_policy.yml
+- include: iam_role.yml

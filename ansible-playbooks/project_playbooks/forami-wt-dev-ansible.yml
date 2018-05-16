@@ -1,0 +1,37 @@
+- name: launch instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: instance
+      vars_file: forami-wt-dev-ansible.yml
+
+- name: Configure instance(s)
+  hosts: launched
+  become: yes
+  gather_facts: no
+  roles:
+    - ../common_playbooks/roles/timezone
+    - ../common_playbooks/roles/cloud-config
+    - ../common_playbooks/roles/amazon-linux-ami-repository-2017.03
+    - ../common_playbooks/roles/perman_groups
+    - ../common_playbooks/roles/openssh-ldap-6.6.1p1-33.66.amzn1.x86_64
+    - ../common_playbooks/roles/nss-pam-ldapd-0.7.5-20.12.amzn1.x86_64
+    - ../common_playbooks/roles/authconfig-6.2.8-30.31.amzn1.x86_64
+    - ../common_playbooks/roles/pip-9.0.1
+    - ../common_playbooks/roles/jinja2-2.8
+    - ../common_playbooks/roles/boto-2.39.0
+    - ../common_playbooks/roles/boto3-1.4.4
+    - ../common_playbooks/roles/git-2.7.5-1.49.amzn1
+    - ../common_playbooks/roles/gcc-4.8.3-3.20.amzn1
+    - ../common_playbooks/roles/openssl-1.0.1k-15.99.amzn1
+    - ../common_playbooks/roles/ansible-2.4
+    - ../common_playbooks/roles/clc-ansible-module-1.1.22
+    - ../common_playbooks/roles/awscli-1.11.127
+    - ../common_playbooks/roles/mysql56-devel.x86_64
+    - ../common_playbooks/roles/mysql56.x86_64
+    - ../common_playbooks/roles/python27-devel.x86_64
+    - ../common_playbooks/roles/MySQL-python-1.2.5
+    - ../common_playbooks/roles/mackerel-agent-amazonlinux
+    - role: bash_profile
+      vars_file: forami-wt-dev-ansible.yml

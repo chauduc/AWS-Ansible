@@ -1,0 +1,19 @@
+- name: launch instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: instance
+      vars_file: bastion.yml
+
+- name: Configure instance(s)
+  hosts: launched
+  become: yes
+  gather_facts: no
+  roles:
+    - role: ldap_client
+      vars_file: bastion.yml
+    - role: nscd
+      vars_file: bastion.yml
+    - role: sshd
+      vars_file: bastion.yml

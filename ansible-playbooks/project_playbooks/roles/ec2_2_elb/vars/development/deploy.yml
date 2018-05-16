@@ -1,0 +1,5 @@
+---
+ec2_metadata:
+  url: http://169.254.169.254/latest/meta-data/instance-id
+ec2_2_elb:
+  elb_name: elb-wt-dev-deploy

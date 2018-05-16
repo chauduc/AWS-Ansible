@@ -1,0 +1,13 @@
+- name: launch instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: launch_configuration
+      vars_file: admin.yml
+    - role: elb
+      vars_file: admin.yml
+    - role: route53record
+      vars_file: admin.yml
+    - role: auto_scaling_group
+      vars_file: admin.yml

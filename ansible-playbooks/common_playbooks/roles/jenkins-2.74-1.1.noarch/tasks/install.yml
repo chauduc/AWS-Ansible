@@ -1,0 +1,18 @@
+---
+- name: Ensures /opt/jenkins dir exists
+  file: 
+    path: "{{ jenkins.directory }}"
+    state: directory
+
+- name: download jenkins 2.74-1-1
+  get_url:
+    url: "{{ jenkins.url }}"
+    dest: "{{ jenkins.directory }}/{{ jenkins.file_name }}"
+    owner: ec2-user
+    group: ec2-user
+    mode: "0644"
+
+- name: install jenkins 2.74-1-1
+  yum:
+    name: "{{ jenkins.directory }}/{{ jenkins.file_name }}"
+    state: present

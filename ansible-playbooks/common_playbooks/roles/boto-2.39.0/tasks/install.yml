@@ -1,0 +1,4 @@
+---
+- pip:
+    name: boto==2.39.0
+    state: present

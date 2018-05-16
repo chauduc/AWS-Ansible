@@ -1,0 +1,20 @@
+---
+- name: Ensures /opt/oracle dir exists
+  file: 
+    path: "{{ jdk.directory }}"
+    state: directory
+
+- name: download jdk 1.8.141
+  get_url:
+    url: "{{ jdk.url }}"
+    dest: "{{ jdk.directory }}/{{ jdk.file_name }}"
+    headers: "{{ jdk.headers }}"
+    validate_certs: no
+    owner: ec2-user
+    group: ec2-user
+    mode: "0644"
+
+- name: install jdk 1.8.141
+  yum:
+    name: "{{ jdk.directory }}/{{ jdk.file_name }}"
+    state: present

@@ -1,0 +1,21 @@
+---
+- name: create auto_scaling_group
+  ec2_asg:
+    name: "{{ item.value.name }}" 
+    load_balancers: "{{ _elb.results[0].elb.name }}"
+    availability_zones: "{{ item.value.availability_zones }}"
+    launch_config_name: "{{ _lc.results[0].name }}"
+    min_size: "{{ item.value.min_size }}"
+    max_size: "{{ item.value.max_size }}"
+    desired_capacity: "{{ item.value.desired_capacity }}"
+    vpc_zone_identifier: "{{ item.value.vpc_zone_identifier }}"
+    region: "{{ item.value.region }}"
+    tags:
+      - Name: "{{ item.value.name }}"
+        propagate_at_launch: no
+#    target_group_arns: 
+#      - "{{ _tg.results[0].target_group_arn }}"
+  with_dict: "{{ auto_scaling_group }}"
+  register: _auto_scaling_group
+
+- debug: var=_auto_scaling_group verbosity=1

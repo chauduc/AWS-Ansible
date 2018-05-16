@@ -1,0 +1,5 @@
+---
+- name: include vars_file
+  include_tasks: include_vars.yml
+- name: add elb as a record to route53
+  include_tasks: add_elb_as_arecord.yml

@@ -1,0 +1,6 @@
+---
+jenkins:
+  url: https://pkg.jenkins.io/redhat/jenkins-2.74-1.1.noarch.rpm
+  directory: /opt/jenkins
+  file_name: jenkins-2.74-1.1.noarch.rpm
+

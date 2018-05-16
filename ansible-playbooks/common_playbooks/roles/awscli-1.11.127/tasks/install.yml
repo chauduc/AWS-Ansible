@@ -1,0 +1,4 @@
+---
+- pip:
+    name: awscli==1.11.127
+    state: present

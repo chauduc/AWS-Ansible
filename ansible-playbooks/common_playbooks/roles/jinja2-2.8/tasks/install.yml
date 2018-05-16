@@ -1,0 +1,4 @@
+---
+- pip:
+    name: Jinja2==2.8
+    state: present

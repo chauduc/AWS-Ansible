@@ -1,0 +1,7 @@
+- name: create rds params group
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: rds_params_group
+      vars_file: rds_params_group.yml

@@ -1,0 +1,7 @@
+- name: create rds subnet group
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: rds_subnet_group
+      vars_file: rds_subnet_group.yml

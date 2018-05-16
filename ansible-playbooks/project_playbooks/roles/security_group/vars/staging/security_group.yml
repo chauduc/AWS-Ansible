@@ -1,0 +1,105 @@
+---
+security_group_etc:
+  region: "{{ global.region }}"
+security_group:
+  manage:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-manage"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+  http:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-http"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+  https:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-https"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
+  http8080:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-http8080"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 8080
+        to_port: 8080
+        cidr_ip: 0.0.0.0/0
+  mysql-stgvpc:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-mysql-stgvpc"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 3306
+        to_port: 3306
+        cidr_ip: 10.141.152.0/22
+  manage-stgvpc:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-manage-stgvpc"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 10.141.152.0/22
+  https-gc-stitch:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-https-gc-stitch"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 221.242.1.42/32
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 118.238.29.226/32
+  https-gc-lilo:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-https-gc-lilo"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 221.242.1.45/32
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 118.238.29.229/32
+  https-gc-sl-vpn:
+    group_name: "{{ global.project_id }}-{{ global.env_id }}-sg-https-gc-sl-vpn"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 153.120.108.36/32
+  https-northern:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-https-northern"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 203.196.20.135/32
+security_group_use_source_groups:
+  https-ca-office:
+    group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-https-ca-office"
+    description: "{{ global.env }} VPC security group"
+    rules:
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-https-gc-stitch"
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        group_name: "{{ global.project_id }}-{{ global.env_id}}-sg-https-gc-lilo"

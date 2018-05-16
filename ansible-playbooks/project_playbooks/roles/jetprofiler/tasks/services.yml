@@ -1,0 +1,14 @@
+---
+- name: disable firewalld
+  systemd:
+    state: stopped
+    daemon_reload: no
+    name: firewalld
+    enabled: no
+
+- name: register vncserver
+  systemd:
+    state: started
+    daemon_reload: yes
+    name: vncserver@:1
+    enabled: yes

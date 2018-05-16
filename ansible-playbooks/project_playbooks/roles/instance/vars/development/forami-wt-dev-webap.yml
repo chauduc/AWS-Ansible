@@ -1,0 +1,26 @@
+---
+ec2_etc:
+  role: webap
+  region: "{{ global.region }}"
+ec2:
+  instances:
+    - name: "forami-{{ global.project_id }}-{{ global.env_id }}-{{ ec2_etc.role }}"
+      env: "{{ global.env_id }}"
+      role: "{{ ec2_etc.role }}"
+      region: "{{ global.region }}"
+      instance_type: t2.micro
+      image: ami-3bd3c45c
+      instance_profile_name: wt-dev-instance-profile
+      key_name: wt-dev
+      subnet_name: wt-dev-private01a
+      group:
+        - "{{ global.project_id }}-{{ global.env_id }}-sg-manage-devvpc"
+        - "{{ global.project_id }}-{{ global.env_id }}-sg-http8080-internal"
+      volumes:
+        - device_name: /dev/xvda
+          volume_size: 8
+          device_type: gp2
+          delete_on_termination: yes
+      exact_count: 1
+      assign_public_ip: no
+      user_data:

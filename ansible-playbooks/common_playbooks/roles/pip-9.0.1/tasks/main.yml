@@ -1,0 +1,3 @@
+---
+- name: install pip
+  include_tasks: install.yml

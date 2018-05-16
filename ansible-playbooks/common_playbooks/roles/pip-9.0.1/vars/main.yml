@@ -1,0 +1,5 @@
+---
+pip:
+  path:
+    src: /usr/local/bin/pip
+    dest: /usr/bin/pip

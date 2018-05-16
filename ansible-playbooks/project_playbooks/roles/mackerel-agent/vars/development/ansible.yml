@@ -1,0 +1,15 @@
+mackerel_agent:
+  apikey: "kbBic7RFUSd8tcHodD2cSLbUKB3gnMg1xn6AgLNXJAjD"
+  pidfile: "/var/run/mackerel-agent.pid"
+  root: "/var/lib/mackerel-agent"
+  display_name: "wt-dev-ansible"
+  roles: 
+    - "dev:ansible"
+  check_plugins:
+    connectivity_monitor: "check-tcp -H 10.141.158.18 -p 22 -c 60"
+mackerel_config_files:
+  - src: etc/mackerel-agent/mackerel-agent.conf.j2
+    dest: /etc/mackerel-agent/mackerel-agent.conf
+    owner: root 
+    group: root
+    mode: "0644"

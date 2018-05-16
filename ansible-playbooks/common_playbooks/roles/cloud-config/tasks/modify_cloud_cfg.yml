@@ -1,0 +1,9 @@
+---
+- name: modify cloud.cfg 
+  template:
+    src: etc/cloud/cloud.cfg.j2
+    dest: /etc/cloud/cloud.cfg
+    owner: "root"
+    group: "root"
+    mode: "0644"
+

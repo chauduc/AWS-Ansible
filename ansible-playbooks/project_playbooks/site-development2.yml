@@ -1,0 +1,7 @@
+---
+#　一時的に使えません
+- include: security_group.yml
+- include: rds_params_group.yml
+- include: rds_subnet_group.yml
+- include: admin_asg_elb.yml
+- include: webap_asg_elb.yml

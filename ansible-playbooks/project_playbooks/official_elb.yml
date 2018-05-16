@@ -1,0 +1,11 @@
+- name: launch instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: launch_configuration
+      vars_file: official.yml
+    - role: elb
+      vars_file: official.yml
+    - role: auto_scaling_group
+      vars_file: official.yml

@@ -1,0 +1,11 @@
+---
+sshd_config:
+  use_ldap: yes
+  authorizedkeyscommand: /usr/libexec/openssh/ssh-ldap-wrapper
+  authorizedkeyscommanduser: nobody
+sshd_files:
+  - src: etc/ssh/sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    owner: "root"
+    group: "root"
+    mode: "0644"

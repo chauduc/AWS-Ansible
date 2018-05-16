@@ -1,0 +1,3 @@
+---
+- name: install MySQL-python
+  include_tasks: install.yml

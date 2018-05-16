@@ -1,0 +1,15 @@
+[general]
+state_file = /var/lib/awslogs/agent-state
+
+{% for dict_item in awslogs -%}
+{% for key, value in dict_item.items() -%}
+[{{ key }}]
+datetime_format = {{ value["datetime_format"] }}
+file = {{ value["file"] }}
+buffer_duration = {{ value["buffer_duration"] }}
+log_stream_name = {{ value["log_stream_name"] }}
+initial_position = {{ value["initial_position"] }}
+log_group_name = {{ value["log_group_name"] }}
+
+{% endfor %}
+{%- endfor %}

@@ -1,0 +1,7 @@
+---
+- name: install.
+  get_url:
+    url: http://downloads.polaricon.com/downloads/installation/jpmy/3/early/jetprofiler_v3.0.10.zip
+    dest: /home/ec2-user/jetprofiler_v3.0.10.zip
+    mode: "0644"
+

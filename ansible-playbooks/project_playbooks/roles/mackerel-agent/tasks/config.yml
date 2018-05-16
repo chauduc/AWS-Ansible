@@ -1,0 +1,26 @@
+---
+- name: Ensures /usr/local/bin/mackerel-toolsdir exists
+  file: 
+    path: /usr/local/bin/mackerel-tools
+    state: directory
+
+- name: set config file
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ mackerel_config_files }}"
+  notify: restart mackerel-agent
+
+- name: add customise plugin
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ mackerel_customise_plugin }}"
+  notify: restart mackerel-agent
+  when: mackerel_customise_plugin is defined

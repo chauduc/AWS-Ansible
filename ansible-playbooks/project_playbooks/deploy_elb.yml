@@ -1,0 +1,32 @@
+- name: create elb and instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: elb
+      vars_file: deploy.yml
+    - role: route53record
+      vars_file: deploy.yml
+    - role: instance
+      vars_file: deploy.yml
+
+- name: add instance to elb
+  hosts: launched
+  become: yes
+  gather_facts: no
+  roles:
+    - ../common_playbooks/roles/git-2.7.5-1.49.amzn1
+    - role: ldap_client
+      vars_file: deploy.yml
+    - role: nscd
+      vars_file: deploy.yml
+    - role: sshd
+      vars_file: deploy.yml
+    - role: deploy
+      vars_file: deploy.yml
+    - role: jenkins
+      vars_file: jenkins.yml
+    - role: jenkins_plugins
+      vars_file: jenkins_plugins.yml
+    - role: ec2_2_elb
+      vars_file: deploy.yml

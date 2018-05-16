@@ -1,0 +1,8 @@
+---
+- name: edit iam role
+  iam_role:
+    name: "{{ item.value.name }}"
+    state: present
+    managed_policy: "{{ item.value.managed_policy }}"
+    assume_role_policy_document: "{{ item.value.assume_role_policy_document }}"
+  with_dict: "{{ iam_role }}"

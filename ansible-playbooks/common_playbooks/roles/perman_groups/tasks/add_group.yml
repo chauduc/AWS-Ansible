@@ -1,0 +1,9 @@
+---
+- name: add group.
+  group:
+    name: "{{ item.name }}"
+    gid: "{{ item.gid }}"
+    state: present
+  with_items: "{{ perman_groups }}"
+
+

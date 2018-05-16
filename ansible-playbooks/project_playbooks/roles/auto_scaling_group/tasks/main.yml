@@ -1,0 +1,5 @@
+---
+- name: include vars_file
+  include_tasks: include_vars.yml
+- name: create auto_scaling_group
+  include_tasks: create_auto_scaling_group.yml

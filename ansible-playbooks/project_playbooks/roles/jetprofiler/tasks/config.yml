@@ -1,0 +1,33 @@
+---
+- name: Ensures /home/ec2-user/.vnc dir exists
+  file: 
+    path: "{{ vnc.vnc_path }}"
+    owner: ec2-user
+    group: ec2-user
+    mode: "0755"
+    state: directory
+
+- name: config
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ vnc_config }}"
+
+- name: generate .vnc/passwd file
+  shell: |
+        echo "{{ vnc.default_passwd }}" | vncpasswd -f > "{{ vnc.vnc_passwd_path }}"
+  become_user: ec2-user
+
+- name: Change the permission to 600 for /home/ec2-user/.vnc/passwd file
+  file:
+    path: "{{ vnc.vnc_passwd_path }}"
+    mode: "0600"
+
+- name: update ec2-user pass
+  user:
+    name: ec2-user
+    update_password: always
+    password: "{{ ec2_user.default_passwd }}"

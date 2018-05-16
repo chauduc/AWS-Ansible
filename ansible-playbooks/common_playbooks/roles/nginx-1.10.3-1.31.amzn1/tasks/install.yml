@@ -1,0 +1,5 @@
+---
+- name: install nginx
+  yum: 
+    name: nginx-1.10.3-1.31.amzn1
+    state: present

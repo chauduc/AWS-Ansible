@@ -1,0 +1,9 @@
+---
+- name: include vars_file
+  include_tasks: include_vars.yml
+
+- name: install application.
+  include_tasks: install.yml
+
+- name: register service
+  include_tasks: service.yml

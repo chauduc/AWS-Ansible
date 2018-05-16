@@ -1,0 +1,7 @@
+---
+- name: include vars_file
+  include_tasks: include_vars.yml
+- name: modify ansible_config
+  include_tasks: modify_ansible_config.yml
+- name: update ansible extra module
+  include_tasks: add_modules_extras.yml

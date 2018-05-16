@@ -1,0 +1,4 @@
+---
+- pip:
+    name: git+git://github.com/ansible/ansible.git@devel
+    state: present

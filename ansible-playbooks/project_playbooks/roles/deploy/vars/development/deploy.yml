@@ -1,0 +1,9 @@
+---
+deploy:
+  private_key_file: ~/.ssh/id-rsa
+deploy_config:
+- src: .ssh/config.j2
+  dest: /home/ec2-user/.ssh/config
+  owner: ec2-user
+  group: ec2-user
+  mode: "0600"

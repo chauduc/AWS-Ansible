@@ -1,0 +1,24 @@
+- name: launch instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: instance
+      vars_file: test.yml
+
+- name: Configure instance(s)
+  #hosts: tag_Name_wt-prd-ansible
+  hosts: launched
+  become: yes
+  gather_facts: no
+  roles:
+    - ../common_playbooks/roles/timezone
+    - ../common_playbooks/roles/cloud-config
+    - ../common_playbooks/roles/nginx-1.10.3-1.31.amzn1
+    - ../common_playbooks/roles/awslogs-1.1.2-1.10.amzn1.noarch
+    - ../common_playbooks/roles/mackerel-agent-amazonlinux
+    - roles/nginx-test
+    - role: roles/awslogs
+      vars_file: test.yml
+    - role: roles/mackerel-agent
+      vars_file: test.yml

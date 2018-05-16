@@ -1,0 +1,37 @@
+---
+cluster_param_group:
+  name: "{{ global.project_id }}-{{ global.env_id }}-cluster-param-group"
+  param_group_family: "aurora5.6"
+  description: "{{ global.project_id }}-{{ global.env_id }}-cluster-param-group"
+  region: "{{ global.region }}"
+  params:
+    - ParameterName: character_set_client
+      ParameterValue: "utf8"
+      ApplyMethod: "pending-reboot"
+    - ParameterName: character_set_connection
+      ParameterValue: "utf8"
+      ApplyMethod: "pending-reboot"
+    - ParameterName: character_set_database
+      ParameterValue: "utf8"
+      ApplyMethod: "pending-reboot"
+    - ParameterName: character_set_results
+      ParameterValue: "utf8"
+      ApplyMethod: "pending-reboot"
+    - ParameterName: character_set_server
+      ParameterValue: "utf8"
+      ApplyMethod: "pending-reboot"
+    - ParameterName: skip-character-set-client-handshake
+      ParameterValue: "1"
+      ApplyMethod: "pending-reboot"
+    - ParameterName: time_zone
+      ParameterValue: "Asia/Tokyo"
+      ApplyMethod: "pending-reboot"
+param_group:
+  name: "{{ global.project_id }}-{{ global.env_id }}-param-group"
+  description: "{{ global.project_id }}-{{ global.env_id }}-param-group"
+  engine: "aurora5.6"
+  region: "{{ global.region }}"
+  params:
+    slow_query_log: yes
+    long_query_time: 1
+    max_connections: 151

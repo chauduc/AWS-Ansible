@@ -1,0 +1,6 @@
+---
+- name: install.
+  yum:
+    name=openssh-ldap-6.6.1p1-33.66.amzn1.x86_64
+    state=present
+

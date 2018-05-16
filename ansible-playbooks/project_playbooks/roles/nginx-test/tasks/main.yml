@@ -1,0 +1,9 @@
+---
+- name: include vars_file 
+  include_tasks: include_vars.yml
+- name: set config
+  include_tasks: config.yml
+- name: set document
+  include_tasks: document.yml
+- name: register service
+  include_tasks: service.yml

@@ -1,0 +1,27 @@
+---
+app_name: project-server-admin
+log_dir: /var/log/project-server
+active_profile: development1
+tomcat_max_active: 45
+tomcat_initial_size: 1
+tomcat_max_idle: 3
+tomcat_min_idle: 1
+tomcat_max_age: 0
+tomcat_fair_queue: true
+tomcat_max_wait: 60000
+tomcat_test_on_borrow: false
+tomcat_test_on_return: false
+tomcat_validation_query_timeout: 1
+tomcat_validation_interval: 60000
+tomcat_test_while_idle: true
+tomcat_time_between_eviction_runs_millis: 5000
+tomcat_min_evictable_idle_time_millis: 60000
+tomcat_remove_abandoned: false
+tomcat_remove_abandoned_timeout: 60
+tomcat_connection_properties: cachePrepStmts=true;cacheCallableStmts=true;cacheServerConfiguration=true;useLocalSessionState=true;elideSetAutoCommits=true;alwaysSendSetIsolation=false;
+management.security.enabled: no
+management.port: 8081
+management.address: 127.0.0.1
+endpoints.enabled: no
+endpoints.metrics.enabled: yes
+endpoints.metrics.id: wt_metrics

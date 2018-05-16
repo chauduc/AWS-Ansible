@@ -1,0 +1,6 @@
+---
+- name: install.
+  yum:
+    name=mysql56.x86_64
+    state=present
+

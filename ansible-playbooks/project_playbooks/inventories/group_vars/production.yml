@@ -1,0 +1,7 @@
+global:
+  env: production
+  env_id: prd
+  project_id: wt
+  vpc_name: wt-prd-vpc
+  region: ap-northeast-1
+  #access_logs_s3_bucket: project-prd-accesslogs

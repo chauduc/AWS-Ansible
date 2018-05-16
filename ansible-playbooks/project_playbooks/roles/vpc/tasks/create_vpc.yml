@@ -1,0 +1,66 @@
+---
+- name: create VPC
+  ec2_vpc_net:
+    name: "{{ vpc.name }}"
+    cidr_block: "{{ vpc.cidr_blodk }}"
+    region: "{{ global.region }}"
+  register: _vpc
+- debug: var=_vpc verbosity=1
+- name: create Internet gateway
+  ec2_vpc_igw:
+    vpc_id: "{{ _vpc.vpc.id }}"
+    region: "{{ global.region }}"
+  register: _igw
+- name: create Public Subnet
+  ec2_vpc_subnet:
+    vpc_id: "{{ _vpc.vpc.id }}"
+    az: "{{ global.region }}{{ item.az }}"
+    cidr: "{{ item.cidr }}"
+    resource_tags:
+      Name: "{{ global.project_id }}-{{ global.env_id }}-{{ item.name }}"
+    region: "{{ global.region }}"
+  with_items: "{{ subnet }}"
+  register: _subnet
+- debug: var=_subnet verbosity=1
+- name: create Nat gateway
+  ec2_vpc_nat_gateway:
+    state: present
+    subnet_id: "{{ _subnet.results | selectattr('item.nat_gateway', 'defined') | map(attribute='subnet.id') | list | first }}"
+    wait: yes
+    region: "{{ global.region }}"
+    if_exist_do_not_create: true
+  register: _nat_gateway
+- debug: var=_nat_gateway
+- name: create Virtual gateway
+  ec2_vpc_vgw:
+    state: present
+    region: "{{ global.region }}"
+    vpc_id: "{{ _vpc.vpc.id }}"
+    name: "{{ vgw.name }}"
+    type: ipsec.1
+  register: _vgw
+- debug: var=_vgw verbosity=1
+- name: create Public Route
+  ec2_vpc_route_table:
+    vpc_id: "{{ _vpc.vpc.id }}"
+    tags:
+      Name: "{{ vgw.public_route_table_name }}"
+    subnets: "{{ _subnet.results | selectattr('item.route', 'equalto', 'Public') | map(attribute='subnet.id') | list }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ _igw.gateway_id }}"
+    region: "{{ global.region }}"
+  register: _public_route
+- debug: var=_public_route verbosity=1
+- name: create Private Route
+  ec2_vpc_route_table:
+    vpc_id: "{{ _vpc.vpc.id }}"
+    tags:
+      Name: "{{ vgw.private_route_table_name }}"
+    subnets: "{{ _subnet.results | selectattr('item.route', 'equalto', 'Private') | map(attribute='subnet.id') | list }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ _nat_gateway.nat_gateway_id }}"
+    region: "{{ global.region }}"
+  register: _private_route
+- debug: var=_private_route verbosity=1

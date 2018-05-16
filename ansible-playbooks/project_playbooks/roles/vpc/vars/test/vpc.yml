@@ -1,0 +1,26 @@
+---
+vpc:
+  name: vpc
+  cidr_blodk: 10.0.0.0/16
+subnet:
+  - name: public01a
+    az: a
+    cidr: 10.0.1.0/24
+    route: Public
+    nat_gateway: true
+  - name: public01c
+    az: c
+    cidr: 10.0.2.0/24
+    route: Public
+  - name: private01a
+    az: a
+    cidr: 10.0.11.0/24
+    route: Private
+  - name: private01c
+    az: c
+    cidr: 10.0.12.0/24
+    route: Private
+vgw:
+  name: {{ global.project_id }}-{{ global.env_id }}-vgw
+  public_route_table_name: {{ global.project_id }}-{{ global.env_id }}-publicroute
+  private_route_table_name: {{ global.project_id }}-{{ global.env_id }}-privateroute

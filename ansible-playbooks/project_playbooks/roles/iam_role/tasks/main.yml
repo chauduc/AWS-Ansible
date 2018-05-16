@@ -1,0 +1,6 @@
+---
+- name: include vars_file
+  include_tasks: include_vars.yml
+- name: edit IAM role
+  include_tasks: modify_role.yml
+

@@ -1,0 +1,21 @@
+- name: launch instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: instance
+      vars_file: monitor.yml
+
+- name: Configure instance(s)
+  hosts: launched
+  become: yes
+  gather_facts: no
+  roles:
+    - role: mackerel-agent
+      vars_file: monitor.yml
+    - role: ldap_client
+      vars_file: monitor.yml
+    - role: nscd
+      vars_file: monitor.yml
+    - role: sshd
+      vars_file: monitor.yml

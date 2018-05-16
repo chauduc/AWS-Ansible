@@ -1,0 +1,23 @@
+- name: launch instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: instance
+      vars_file: ansible.yml
+
+- name: Configure instance(s)
+  hosts: launched
+  become: yes
+  gather_facts: no
+  roles:
+    - role: ansible
+      vars_file: ansible.yml
+    - role: mackerel-agent
+      vars_file: ansible.yml
+    - role: ldap_client
+      vars_file: ansible.yml
+    - role: nscd
+      vars_file: ansible.yml
+    - role: sshd
+      vars_file: ansible.yml

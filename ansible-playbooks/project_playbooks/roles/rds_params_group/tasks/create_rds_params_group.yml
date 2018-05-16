@@ -1,0 +1,24 @@
+---
+- name: Create database parameter group
+  rds_param_group:
+    name: "{{ param_group.name }}"
+    description: "{{ param_group.description }}"
+    engine: "{{ param_group.engine }}"
+    state: present
+    region: "{{ param_group.region }}"
+    params: "{{ param_group.params }}"
+  register: _prg
+
+- debug: var=_prg verbosity=1
+
+- name: Create database cluster parameter group. On create please play twice time for affected
+  rds_cluster_param_group:
+    param_group_name: "{{ cluster_param_group.name }}"
+    description: "{{ cluster_param_group.description }}"
+    param_group_family: "{{ cluster_param_group.param_group_family }}"
+    region: "{{ cluster_param_group.region }}"
+    state: present
+    params: "{{ cluster_param_group.params }}"
+  register: _cluster_prg
+
+- debug: var=_cluster_prg verbosity=1

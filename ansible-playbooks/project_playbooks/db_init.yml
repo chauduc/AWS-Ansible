@@ -1,0 +1,7 @@
+- name: Database Initialize
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: db_init
+      vars_file: db_init.yml

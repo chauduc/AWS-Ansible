@@ -1,0 +1,16 @@
+---
+- name: get instance id
+  uri:
+    url: "{{ ec2_metadata.url }}"
+    return_content: yes
+  register: _instance
+
+- debug: var=_instance verbosity=1
+
+- name: add instance to LB
+  ec2_elb:
+    instance_id: "{{ _instance.content }}"
+    ec2_elbs: "{{ ec2_2_elb.elb_name }}"
+    region: "{{ global.region }}"
+    state: present
+    wait: yes

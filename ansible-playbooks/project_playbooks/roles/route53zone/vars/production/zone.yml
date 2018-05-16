@@ -1,0 +1,3 @@
+zones:
+  - zone_name: project.selfy.jp
+    zone_comment: project dev dns zone

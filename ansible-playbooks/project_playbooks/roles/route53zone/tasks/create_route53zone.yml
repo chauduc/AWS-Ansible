@@ -1,0 +1,8 @@
+---
+- name: create route53 zone
+  route53_zone:
+    zone: "{{ item.zone_name }}"
+    state: present
+    comment: "{{ item.zone_comment }}"
+  with_items: "{{ zones }}"
+

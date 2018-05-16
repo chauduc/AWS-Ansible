@@ -1,0 +1,27 @@
+---
+ec2_etc:
+  role: ansible
+  region: "{{ global.region }}"
+ec2:
+  instances:
+    - name: "{{ global.project_id }}-{{ global.env_id }}-{{ ec2_etc.role }}"
+      env: "{{ global.env_id }}"
+      role: "{{ ec2_etc.role }}"
+      region: "{{ global.region }}"
+      instance_type: t2.micro
+      image: ami-95c92bf3
+      instance_profile_name: ansible-instance-profile-development
+      key_name: wt-prd
+      subnet_name: wt-prd-public01a
+      group:
+        - "{{ global.project_id }}-{{ global.env_id }}-sg-manage"
+      volumes:
+        - device_name: /dev/xvda
+          volume_size: 8
+          device_type: gp2
+          delete_on_termination: yes
+      exact_count: 1
+      assign_public_ip: no
+      user_data:
+  eip:
+    ip: 54.92.73.224

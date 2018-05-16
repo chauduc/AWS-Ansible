@@ -1,0 +1,3 @@
+---
+- name: install jdk 1.8.141
+  include_tasks: install.yml

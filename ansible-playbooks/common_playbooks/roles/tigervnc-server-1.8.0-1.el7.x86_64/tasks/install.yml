@@ -1,0 +1,6 @@
+---
+- name: install.
+  yum:
+    name: tigervnc-server-1.8.0-1.el7.x86_64
+    state: present
+

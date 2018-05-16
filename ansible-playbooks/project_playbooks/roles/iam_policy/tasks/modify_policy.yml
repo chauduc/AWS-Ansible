@@ -1,0 +1,21 @@
+---
+- name: edit iam policy
+  iam_managed_policy:
+    policy_name: "{{ item.value.policy_name }}"
+    state: present
+    policy: >-
+      {
+        "Version": "{{ iam_policy_etc.version }}",
+        "Statement": [
+        {
+            "Effect": "{{ item.value.policy.effect }}",
+            "Action": [
+              "{{ item.value.policy.action }}"
+            ],
+            "Resource": [
+              "{{ item.value.policy.resource }}"
+            ]
+          } 
+        ]
+      }
+  with_dict: "{{ iam_policy }}"

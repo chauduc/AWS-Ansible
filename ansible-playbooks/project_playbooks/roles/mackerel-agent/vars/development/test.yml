@@ -1,0 +1,18 @@
+mackerel_agent:
+  apikey: "8biU9wigjQCbZ8zLWwZWiqixHMkGdqdGu7wffan5cQcC"
+  pidfile: "/var/run/mackerel-agent.pid"
+  root: "/var/lib/mackerel-agent"
+  roles:
+    - "My-Service:app"
+    - "Another-Service:db"
+  display_name: "My host"
+  agent_plugins:
+    jvm: "/usr/local/bin/mackerel-plugin-jvm -javaname=NettyServer"
+  check_plugins:
+    check_cron: "/usr/local/bin/check-procs -p crond"
+mackerel_config_files:
+  - src: etc/mackerel-agent/mackerel-agent.conf.j2
+    dest: /etc/mackerel-agent/mackerel-agent.conf
+    owner: root 
+    group: root
+    mode: "0644"

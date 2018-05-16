@@ -1,0 +1,8 @@
+vpc_subnet:
+  name:
+    - "{{ global.project_id }}-{{ global.env_id}}-private02c"
+    - "{{ global.project_id }}-{{ global.env_id}}-private02a"
+rds_subnet_group:
+  name: "{{ global.project_id }}-{{ global.env_id}}-rsg"
+  description: "{{ global.env_id}} RDS subnet group"
+  region: "{{ global.region }}"

@@ -1,0 +1,30 @@
+---
+rds_etc:
+  command: create
+  role: dbm
+  region: "{{ global.region }}"
+  engine: aurora
+  engine_version: 5.6.10a
+  vpc_security_group_name: 
+    - "{{ global.project_id }}-{{ global.env_id}}-sg-mysql-{{ global.env_id}}vpc"
+  db_subnet_group_name: "{{ global.project_id }}-{{ global.env_id}}-rsg"
+  wait: yes
+  wait_timeout: 900
+rds:
+  clusters:
+    name: "{{ global.project_id }}-{{ global.env_id }}-cluster"
+    master_username: admin
+    master_user_password: 1234567890
+    db_cluster_parameter_group_name: "{{ global.project_id }}-{{ global.env_id }}-cluster-param-group"
+  instances:
+    name: "{{ global.project_id }}-{{ global.env_id }}-{{ rds_etc.role }}"
+    role: "{{ rds_etc.role }}"
+    env: "{{ global.env_id }}"
+    multi_az: no
+    availability_zone: ap-northeast-1a
+    preferred_maintenance_window: tue:18:00-tue:21:00
+    db_parameter_group_name: "{{ global.project_id }}-{{ global.env_id }}-param-group"
+    monitoring_role_arn: arn:aws:iam::961290755580:role/rds-monitoring-role
+    monitoring_interval: 60
+    promotion_tier: 0
+    db_instance_class: db.t2.small

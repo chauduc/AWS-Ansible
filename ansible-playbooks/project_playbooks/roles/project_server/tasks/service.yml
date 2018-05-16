@@ -1,0 +1,7 @@
+- name: register service
+  command: /sbin/chkconfig --add "{{ app_name }}"
+
+- name: start service.
+  service: 
+    name: "{{ app_name }}"
+    enabled: yes

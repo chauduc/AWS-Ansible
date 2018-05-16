@@ -1,0 +1,6 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: security_group
+      vars_file: security_group.yml

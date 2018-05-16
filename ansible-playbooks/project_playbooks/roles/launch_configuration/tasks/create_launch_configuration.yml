@@ -1,0 +1,16 @@
+---
+- name: create launch_configuration
+  ec2_lc:
+    name: "{{ item.value.name }}"
+    image_id: "{{ item.value.image_id }}"
+    key_name: "{{ item.value.key_name }}"
+    region: "{{ global.region }}"
+    security_groups: "{{ item.value.security_groups }}"
+    instance_type: "{{ item.value.instance_type }}"
+    instance_profile_name: "{{ item.value.instance_profile_name }}"
+    user_data: "{{ item.value.user_data }}"
+    volumes: "{{ item.value.volumes }}"
+  with_dict: "{{ launch_configuration }}"
+  register: _lc
+
+- debug: var=_lc verbosity=1

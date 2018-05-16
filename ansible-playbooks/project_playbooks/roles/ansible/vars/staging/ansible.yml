@@ -1,0 +1,4 @@
+---
+ansible:
+  log_path: /var/log/ansible.log
+  private_key_file: ~/.ssh/xxx.pem

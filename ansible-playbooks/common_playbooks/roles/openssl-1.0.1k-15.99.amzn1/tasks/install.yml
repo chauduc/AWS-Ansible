@@ -1,0 +1,5 @@
+---
+- name: install openssl
+  yum:
+    name: openssl-1.0.1k-15.99.amzn1
+    state: present

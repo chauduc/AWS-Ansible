@@ -1,0 +1,57 @@
+---
+- name: Get security group id
+  ec2_group_facts:
+    region: "{{ rds_etc.region }}"
+    filters:
+      group-name: "{{ item }}"
+  with_items: "{{ rds_etc.vpc_security_group_name }}"
+  register: _sg
+
+- debug: var=_sg verbosity=1
+
+- set_fact:
+    _security_group_ids: "{{ _sg.results.0.security_groups|map(attribute='group_id')|list }}"
+
+- debug: var=_security_group_ids verbosity=1
+
+- name: Create an Aurora RDS Cluster
+  rds_cluster:
+    region: "{{ rds_etc.region }}"
+    command: "{{ rds_etc.command }}"
+    vpc_security_group_ids: "{{ _security_group_ids }}"
+    db_subnet_group_name: "{{ rds_etc.db_subnet_group_name }}"
+    db_cluster_identifier: "{{ rds.clusters.name }}"
+    engine: "{{ rds_etc.engine }}"
+    engine_version: "{{ rds_etc.engine_version }}"
+    master_username: "{{ rds.clusters.master_username }}"
+    master_user_password: "{{ rds.clusters.master_user_password }}"
+    db_cluster_parameter_group_name: "{{ rds.clusters.db_cluster_parameter_group_name }}"
+    wait: "{{ rds_etc.wait }}"
+    wait_timeout: "{{ rds_etc.wait_timeout }}"
+  register: _new_aurora_rds_cluster
+- debug: var=_new_aurora_rds_cluster verbosity=1
+
+- name: Create an Aurora RDS instance
+  rds_boto3:
+    region: "{{ rds_etc.region }}"
+    command: "{{ rds_etc.command }}"
+    db_cluster_identifier: "{{ _new_aurora_rds_cluster.rds.DBClusters[0].DBClusterIdentifier }}"
+    db_instance_identifier: "{{ rds.instances.name }}"
+    tags:
+      Name: "{{ rds.instances.name }}"
+      env: "{{ rds.instances.env }}"
+      role: "{{ rds.instances.role }}"
+    multi_az: "{{ rds.instances.multi_az }}"
+    preferred_maintenance_window: "{{ rds.instances.preferred_maintenance_window }}"
+    db_subnet_group_name: "{{ rds_etc.db_subnet_group_name }}"
+    engine: "{{ rds_etc.engine }}"
+    engine_version: "{{ rds_etc.engine_version }}"
+    db_instance_class: "{{ rds.instances.db_instance_class }}"
+    db_parameter_group_name: "{{ rds.instances.db_parameter_group_name }}"
+    wait: "{{ rds_etc.wait }}"
+    wait_timeout: "{{ rds_etc.wait_timeout }}"
+  register: _new_aurora_rds_instance
+- debug: var=_new_aurora_rds_instance verbosity=1
+
+- name: change auto minor version upgrade to false
+  shell: aws rds modify-db-instance --region "{{ rds_etc.region }}" --db-instance-identifier "{{ rds.instances.name }}" --no-auto-minor-version-upgrade --monitoring-role-arn "{{ rds.instances.monitoring_role_arn }}" --monitoring-interval "{{ rds.instances.monitoring_interval }}" --promotion-tier "{{ rds.instances.promotion_tier }}"

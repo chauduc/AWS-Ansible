@@ -1,0 +1,17 @@
+---
+- name: create alb
+  elb_application_lb:
+    access_logs_enabled: yes
+    access_logs_s3_bucket: "{{ global.access_logs_s3_bucket }}"
+    access_logs_s3_prefix: "{{ global.project_id }}-{{ global.env_id}}-{{ item.value.name }}"
+    name: "alb-{{ global.project_id }}-{{ global.env_id}}-{{ item.value.name }}"
+    region: "{{ global.region }}"
+    subnets: "{{ item.value.subnets }}"
+    security_groups: "{{ item.value.security_groups }}"
+    scheme: "{{ item.value.scheme }}"
+    listeners: "{{ item.value.listeners }}"
+    state: present
+  with_dict: "{{ alb }}"
+  register: _alb
+
+- debug: var=_alb verbosity=1

@@ -1,0 +1,6 @@
+---
+- name: install.
+  yum:
+    name=nss-pam-ldapd-0.7.5-20.12.amzn1.x86_64
+    state=present
+

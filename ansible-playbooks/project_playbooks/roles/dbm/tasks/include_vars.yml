@@ -1,0 +1,5 @@
+---
+- name: include vars_files
+  include_vars: "{{ global.env }}/{{ item }}"
+  with_items:
+    - dbm.yml

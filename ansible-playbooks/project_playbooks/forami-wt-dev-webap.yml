@@ -1,0 +1,36 @@
+- name: launch instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: instance
+      vars_file: forami-wt-dev-webap.yml
+
+- name: Configure instance(s)
+  hosts: launched
+  become: yes
+  gather_facts: no
+  roles:
+    - ../common_playbooks/roles/timezone
+    - ../common_playbooks/roles/cloud-config
+    - ../common_playbooks/roles/amazon-linux-ami-repository-2017.03
+    - ../common_playbooks/roles/perman_groups
+    - ../common_playbooks/roles/openssh-ldap-6.6.1p1-33.66.amzn1.x86_64
+    - ../common_playbooks/roles/nss-pam-ldapd-0.7.5-20.12.amzn1.x86_64
+    - ../common_playbooks/roles/authconfig-6.2.8-30.31.amzn1.x86_64
+    - ../common_playbooks/roles/jdk-8u141-linux-x64
+    - role: ldap_client
+      vars_file: webap.yml
+    - role: nscd
+      vars_file: webap.yml
+    - role: sshd
+      vars_file: webap.yml
+
+- name: install application.
+  hosts: launched
+  become: yes
+  gather_facts: no
+  roles:
+    - role: watch_server
+      vars_file: forami-watch-server.yml
+

@@ -1,0 +1,6 @@
+---
+- name: register service
+  service:
+    name: nscd
+    state: restarted
+    enabled: yes

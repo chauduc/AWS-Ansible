@@ -1,0 +1,6 @@
+---
+- name: include vars_file
+  include_tasks: include_vars.yml
+- name: edit IAM policy
+  include_tasks: modify_policy.yml
+

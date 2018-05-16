@@ -1,0 +1,29 @@
+---
+awslogs:
+  - /var/log/messages:
+      datetime_format: "%b %d %H:%M:%S"
+      file: /var/log/messages
+      buffer_duration: 5000
+      log_stream_name: "{instance_id}"
+      initial_position: start_of_file
+      log_group_name: /var/log/messages
+  - /var/log/nginx/access.log:
+      datetime_format: "%b %d %H:%M:%S"
+      file: /var/log/nginx/access.log
+      buffer_duration: 5000
+      log_stream_name: "{instance_id}-{ip_address}-access.log"
+      initial_position: start_of_file
+      log_group_name: webap_accesslog
+awscli:
+  region: ap-northeast-1
+aws_conf_files:
+  - src: etc/awslogs/awslogs.conf.j2
+    dest: /etc/awslogs/awslogs.conf
+    owner: root
+    group: root
+    mode: "0644"
+  - src: etc/awslogs/awscli.conf.j2
+    dest: /etc/awslogs/awscli.conf
+    owner: root
+    group: root
+    mode: "0644"

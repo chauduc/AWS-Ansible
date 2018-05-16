@@ -1,0 +1,13 @@
+---
+target_group:
+  webap:
+    group_name: tg-{{ global.project_id }}-{{ global.env_id}}-webap
+    protocol: http
+    port: 80
+    health_check_interval: 20
+    health_check_path: /
+    health_check_port: 80
+    health_check_protocol: http
+    health_check_timeout: 3
+    healthy_threshold_count: 2
+    unhealthy_threshold_count: 2

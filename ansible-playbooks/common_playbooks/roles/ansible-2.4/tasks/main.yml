@@ -1,0 +1,3 @@
+---
+- name: install ansible
+  include_tasks: install.yml

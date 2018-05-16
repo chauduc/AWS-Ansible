@@ -1,0 +1,14 @@
+---
+vnc:
+  vnc_path: /home/ec2-user/.vnc
+  vnc_passwd_path: /home/ec2-user/.vnc/passwd
+  default_passwd: 1234567890
+ec2_user:
+  default_passwd: 1234567890
+vnc_config:
+  - src: etc/systemd/system/vncserver@:1.service.j2
+    dest: /etc/systemd/system/vncserver@:1.service
+    owner: root
+    group: root
+    mode: "0664"
+    

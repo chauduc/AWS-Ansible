@@ -1,0 +1,31 @@
+---
+elb_etc:
+  role: "admin"
+elb:
+  admin:
+    name: elb-{{ global.project_id }}-{{ global.env_id }}-{{ elb_etc.role }}
+    env: "{{ global.env_id }}"
+    role: "{{ elb_etc.role }}"
+    subnets:
+      - subnet-627b9e2b
+      - subnet-daf2aa82
+    listeners:
+      - protocol: https
+        load_balancer_port: 443
+        instance_protocol: http
+        instance_port: 8080
+        ssl_certificate_id: "arn:aws:acm:ap-northeast-1:961290755580:certificate/b788e720-009e-466f-87d1-8364441d1dda"
+    security_group_names:
+      - "{{ global.project_id }}-{{ global.env_id }}-sg-https-gc-stitch"
+      - "{{ global.project_id }}-{{ global.env_id }}-sg-https-gc-lilo"
+      - "{{ global.project_id }}-{{ global.env_id }}-sg-https-northern"
+    cross_az_load_balancing: yes
+    health_check:
+        ping_protocol: http
+        ping_port: 8080
+        ping_path: "/api/system"
+        response_timeout: 20
+        interval: 30
+        unhealthy_threshold: 3
+        healthy_threshold: 2
+    access_logs: {}

@@ -1,0 +1,34 @@
+---
+ansible:
+  log_path: /var/log/ansible.log
+  private_key_file: ~/.ssh/xxx.pem
+aws:
+  path: /home/ec2-user/.aws
+  state: directory
+modules_extras:
+  - src: usr/local/lib/python2.7/site-packages/ansible/modules/cloud/amazon
+    dest: /usr/local/lib/python2.7/site-packages/ansible/modules/cloud/amazon
+    filename: rds_boto3.py
+  - src: usr/local/lib/python2.7/site-packages/ansible/modules/cloud/amazon
+    dest: /usr/local/lib/python2.7/site-packages/ansible/modules/cloud/amazon
+    filename: rds_cluster.py
+  - src: usr/local/lib/python2.7/site-packages/ansible/modules/cloud/amazon
+    dest: /usr/local/lib/python2.7/site-packages/ansible/modules/cloud/amazon
+    filename: ec2_lc.py
+  - src: usr/local/lib/python2.7/site-packages/ansible/modules/cloud/amazon
+    dest: /usr/local/lib/python2.7/site-packages/ansible/modules/cloud/amazon
+    filename: rds_cluster_param_group.py
+  - src: usr/local/lib/python2.7/site-packages/ansible/modules/cloud/amazon
+    dest: /usr/local/lib/python2.7/site-packages/ansible/modules/cloud/amazon
+    filename: rds_param_group.py
+ansible_config_files:
+  - src: etc/ansible/ansible.cfg.j2
+    dest: /home/ec2-user/.ansible.cfg
+    owner: ec2-user
+    group: ec2-user
+    mode: "0664"
+  - src: .ssh/config.j2
+    dest: /home/ec2-user/.ssh/config
+    owner: ec2-user
+    group: ec2-user
+    mode: "0600"
